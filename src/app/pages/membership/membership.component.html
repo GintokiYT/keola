@@ -1,0 +1,36 @@
+<div class="w-full min-h-screen bg-slate-900 flex flex-col justify-center items-center">
+  <h2 class="container text-center text-white py-4 text-3xl font-extrabold md:py-6">Lista de suscripciones</h2>
+  <div class="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 mb-6">
+    <ng-container *ngFor="let suscription of suscriptions">
+      <div class="flex flex-col gap-2 p-5 bg-sky-950 rounded-md justify-between">
+        <div class="flex flex-col gap-2">
+          <p class="text-2xl font-extrabold text-amber-500 text-center uppercase">
+            {{ suscription.package.name }}
+          </p>
+          <p class="text-white text-xl">Detalles: </p>
+          <p class="text-white text-xl">Beneficios: <span class="text-lg">
+            {{ suscription.beneficiaries }}
+          </span></p>
+          <p class="text-white">{{ suscription.quotaDescription }}</p>
+          <p class="text-white">{{ suscription.statusName }}</p>
+          <p class="text-white">{{ suscription.creationDate }}</p>
+          <div class="flex flex-col gap-1 bg-stone-800 p-3 rounded-md">
+            <p class="text-white text-xl font-semibold">Precio: <span class="text-lime-600">{{ transformCurrency(suscription.packageDetailResponse.membershipmaintenance) }}</span></p>
+            <p class="text-white text-xl font-semibold">{{ suscription.packageDetailResponse.membershipmaintenanceletter}}</p>
+          </div>
+        </div>
+        <button
+          class="bg-slate-300 text-slate-950 text-lg font-semibold rounded-md py-1 uppercase mt-1"
+          type="button"
+          (click)="openModal(suscription.id)"
+        >ver más</button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<app-detail-modal
+  *ngIf="statusModal"
+  [(statusModal)]="statusModal"
+  [currentId]="currentId"
+></app-detail-modal>
